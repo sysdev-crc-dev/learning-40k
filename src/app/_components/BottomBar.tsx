@@ -1,13 +1,11 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { Box, Braces, CircleDashed, Cog } from "lucide-react";
+import { Box, Braces } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 
-export interface IAppProps {}
-
-export default function BottomBar(props: IAppProps) {
+export default function BottomBar() {
   const currentPath = usePathname();
   console.log(currentPath);
   return (

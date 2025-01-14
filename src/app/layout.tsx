@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Box, Braces } from "lucide-react";
-import Link from "next/link";
 import BottomBar from "./_components/BottomBar";
 
 const geistSans = Geist({

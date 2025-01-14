@@ -1,4 +1,4 @@
-import { Phase, Stratagem } from "../../../types";
+import { Stratagem } from "../../../types";
 import {
   Accordion,
   AccordionContent,

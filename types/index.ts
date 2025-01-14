@@ -18,27 +18,34 @@ export type Condition = {
   text: string;
 };
 export type HTML = string;
-export type Turn = "Your turn" | "Either player’s turn" | "Opponent’s turn"
-export type Phase = "Any phase" | "Command phase" | "Movement phase" | "Shooting phase" | "Charge phase" | "Fight phase" | "Movement or Charge phase"
+export type Turn = "Your turn" | "Either player’s turn" | "Opponent’s turn";
+export type Phase =
+  | "Any phase"
+  | "Command phase"
+  | "Movement phase"
+  | "Shooting phase"
+  | "Charge phase"
+  | "Fight phase"
+  | "Movement or Charge phase";
 export type Stratagem = {
-    faction_id: string;
-    id: number;
-    name: string;
-    type: string;
-    cp_cost: number;
-    legend: string;
-    turn: Turn;
-    phase: Phase;
-    detachment: string;
-    description: string | Condition[];
-}
+  faction_id: string;
+  id: number;
+  name: string;
+  type: string;
+  cp_cost: number;
+  legend: string;
+  turn: Turn;
+  phase: Phase;
+  detachment: string;
+  description: string | Condition[];
+};
 export type Ability = {
   id: number;
   faction_id: string;
   name: string;
   legend: string;
   description: string;
-}
+};
 export type Enhancement = {
   id: number;
   faction_id: string;
@@ -46,4 +53,31 @@ export type Enhancement = {
   legend: string;
   cost: number;
   detachment: string;
-}
+};
+
+export type DS_Ability = {
+  datasheet_id: number;
+  line: number;
+  ability_id: number;
+  model: string;
+  name: string;
+  description: string;
+  type: string;
+  parameter: string;
+};
+
+export type Datasheet = {
+  id: number;
+  name: string;
+  faction_id: string;
+  source_id: number;
+  legend: string;
+  role: string;
+  loadout: string;
+  transport: string;
+  virtual: false;
+  leader_head: string;
+  leader_footer: string;
+  damaged_description: string;
+  link: string;
+};

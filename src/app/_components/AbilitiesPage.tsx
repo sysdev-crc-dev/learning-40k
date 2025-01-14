@@ -1,29 +1,44 @@
-import { Accordion } from "@/components/ui/accordion";
+// import { Accordion } from "@/components/ui/accordion";
 import dataServiceInst from "../../../services/Data.service";
 
-import parseDescriptions from "../../../utils/parseDescriptions";
-import PhaseComponent from "./Phase";
-import PhaseAccordion from "./PhaseAccordion";
-
+// import parseDescriptions from "../../../utils/parseDescriptions";
+// import PhaseComponent from "./Phase";
+// import PhaseAccordion from "./PhaseAccordion";
+import Test from "../../../lists/test.json";
 export default async function AbilitiesPage() {
-  const stratsRelevant = dataServiceInst
-    .getStratagems()
+  const asd = dataServiceInst
+    .getDatasheets()
     .filter(
-      (strat) =>
-        strat.type.includes("Core") || strat.detachment === "Hallowed Martyrs"
+      (datasheet) =>
+        datasheet.faction_id === "AS" && datasheet.source_id === 112
     )
-    .filter((strat) => strat.id !== 8539002)
-    .map((strat) => ({
-      ...strat,
-      description: parseDescriptions(strat.description as string),
-    }));
+    .map((datasheet) => {
+      return {
+        ...datasheet,
+        abilities: dataServiceInst
+          .getDSAbilities()
+          .filter((ability) => ability.datasheet_id === datasheet.id),
+      };
+    });
 
-  const grouped = Object.groupBy(stratsRelevant, ({ phase }) => phase);
+  console.log(asd);
+
+  // console.log(
+  //   Test.roster.forces[0].selections.map((value) => ({
+  //     name: value.name,
+  //     rules: value.rules,
+  //     selections: value.selections,
+  //   }))
+  // );
+
+  console.log(Test.roster.forces[0].selections[3]);
+
+  // const grouped = Object.groupBy(stratsRelevant, ({ phase }) => phase);
 
   return (
     <div className="dark font-[family-name:var(--font-geist-sans)] px-2">
       <main className="flex flex-col gap-1">
-        <Accordion type="single">
+        {/* <Accordion type="single">
           <PhaseComponent name="Command Phase">
             <PhaseAccordion strats={grouped["Any phase"]} />
             <PhaseAccordion strats={grouped["Command phase"]} />
@@ -46,7 +61,7 @@ export default async function AbilitiesPage() {
             <PhaseAccordion strats={grouped["Any phase"]} />
             <PhaseAccordion strats={grouped["Fight phase"]} />
           </PhaseComponent>
-        </Accordion>
+        </Accordion> */}
       </main>
     </div>
   );
