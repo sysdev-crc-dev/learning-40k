@@ -18,7 +18,6 @@ const URLS = [
 const fetchDataAndWriteToFS = async (dirname, url) => {
   const lastUpdateURL = url;
   const filename = lastUpdateURL.split("/").pop();
-  console.log(dirname, url);
   const response = await fetch(lastUpdateURL);
 
   if (!response.ok) {

@@ -101,4 +101,22 @@ body {
     text-decoration: underline;
     color: #006a67;
   }
+
+  div.Range {
+    text-align: center;
+    width: 60px;
+  }
+
+  /* div.Range.content {
+    padding: 0 8px;
+  } */
+  div.A,
+  div.BS,
+  div.WS,
+  div.S,
+  div.AP,
+  div.D {
+    text-align: center;
+    width: 40px;
+  }
 }

@@ -7,7 +7,6 @@ import * as React from "react";
 
 export default function BottomBar() {
   const currentPath = usePathname();
-  console.log(currentPath);
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 flex h-14 w-full items-center justify-around bg-background shadow-t dark:bg-gray-900 dark:shadow-t-gray-800">
       <Link

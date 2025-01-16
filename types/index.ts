@@ -81,3 +81,105 @@ export type Datasheet = {
   damaged_description: string;
   link: string;
 };
+
+export type Rule = {
+  description: string;
+  hidden: boolean;
+  id: string;
+  name: string;
+};
+
+export type SelectionUpgrade = {
+  entryGroupId: string;
+  entryId: string;
+  from: string;
+  group: string;
+  id: string;
+  name: string;
+  number: string;
+  rules?: Rule[];
+  type: "upgrade";
+};
+
+export type Category = {
+  entryId: string;
+  id: string;
+  name: string;
+  primary: boolean;
+};
+export type SelectionsTuple = [SelectionUpgrade];
+export type Upgrade = {
+  id: string;
+  number: number;
+  from: string;
+  name: string;
+  selections?: SelectionsTuple;
+  categories?: Category[];
+  type: "upgrade";
+};
+
+export type Characteristic = {
+  $text: string;
+  name: string;
+  typeId: string;
+};
+
+export type Profile = {
+  characteristics: Characteristic[];
+  selections?: Selection[];
+  id: string;
+  name: string;
+  hidden: boolean;
+  typeId: string;
+  typeName: string;
+  from: string;
+};
+
+export interface Cost {
+  name: string;
+  typeId: string;
+  value: number;
+}
+
+export interface Selection {
+  rules?: Rule[];
+  selections?: [Profile, Selection];
+  profiles: Profile[];
+  id: string;
+  name: string;
+  entryId: string;
+  number: number;
+  type: string;
+  from: string;
+  entryGroupId?: string;
+  group?: string;
+  typeName?: string;
+}
+
+export type SelectionModel = {
+  rules?: Rule[];
+  profiles: Profile[];
+  selections: Selection[];
+  costs: Cost[];
+  categories: Category[];
+  id: string;
+  name: string;
+  entryId: string;
+  number: number;
+  type: string;
+  from: string;
+};
+
+export type Unit = {
+  id: string;
+  name: string;
+  entryId: string;
+  number: number;
+  type: string;
+  from: string;
+  costs: Cost[];
+  categories: Category[];
+  selections: SelectionModel[];
+  profiles: Profile[];
+  rules?: Rule[];
+};

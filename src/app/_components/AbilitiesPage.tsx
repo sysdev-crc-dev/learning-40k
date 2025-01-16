@@ -1,67 +1,41 @@
-// import { Accordion } from "@/components/ui/accordion";
-import dataServiceInst from "../../../services/Data.service";
-
-// import parseDescriptions from "../../../utils/parseDescriptions";
-// import PhaseComponent from "./Phase";
-// import PhaseAccordion from "./PhaseAccordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import Test from "../../../lists/test.json";
+import UpgradeCard from "./UpgradeCard";
+import { SelectionModel, Unit, Upgrade } from "../../../types";
+import ModelCard from "./ModelCard";
+import UnitCard from "./UnitCard";
 export default async function AbilitiesPage() {
-  const asd = dataServiceInst
-    .getDatasheets()
-    .filter(
-      (datasheet) =>
-        datasheet.faction_id === "AS" && datasheet.source_id === 112
-    )
-    .map((datasheet) => {
-      return {
-        ...datasheet,
-        abilities: dataServiceInst
-          .getDSAbilities()
-          .filter((ability) => ability.datasheet_id === datasheet.id),
-      };
-    });
-
-  console.log(asd);
-
-  // console.log(
-  //   Test.roster.forces[0].selections.map((value) => ({
-  //     name: value.name,
-  //     rules: value.rules,
-  //     selections: value.selections,
-  //   }))
-  // );
-
-  console.log(Test.roster.forces[0].selections[3]);
-
-  // const grouped = Object.groupBy(stratsRelevant, ({ phase }) => phase);
+  const list = Test.roster.forces[0].selections.map((value) => (
+    <AccordionItem key={value.id} value={value.name}>
+      <AccordionTrigger>
+        {value.name}
+        {value.name === "Detachment Choice" || value.name === "Battle Size"
+          ? ` - ${value.selections[0].name}`
+          : ""}
+      </AccordionTrigger>
+      <AccordionContent>
+        {value.type === "upgrade" && (
+          <UpgradeCard selection={value as unknown as Upgrade} />
+        )}
+        {value.type === "model" && (
+          <ModelCard model={value as unknown as SelectionModel} />
+        )}
+        {value.type === "unit" && <UnitCard unit={value as unknown as Unit} />}
+      </AccordionContent>
+    </AccordionItem>
+  ));
 
   return (
     <div className="dark font-[family-name:var(--font-geist-sans)] px-2">
       <main className="flex flex-col gap-1">
-        {/* <Accordion type="single">
-          <PhaseComponent name="Command Phase">
-            <PhaseAccordion strats={grouped["Any phase"]} />
-            <PhaseAccordion strats={grouped["Command phase"]} />
-          </PhaseComponent>
-          <PhaseComponent name="Movement Phase">
-            <PhaseAccordion strats={grouped["Any phase"]} />
-            <PhaseAccordion strats={grouped["Movement phase"]} />
-            <PhaseAccordion strats={grouped["Movement or Charge phase"]} />
-          </PhaseComponent>
-          <PhaseComponent name="Shooting Phase">
-            <PhaseAccordion strats={grouped["Any phase"]} />
-            <PhaseAccordion strats={grouped["Shooting phase"]} />
-          </PhaseComponent>
-          <PhaseComponent name="Charge Phase">
-            <PhaseAccordion strats={grouped["Any phase"]} />
-            <PhaseAccordion strats={grouped["Charge phase"]} />
-            <PhaseAccordion strats={grouped["Movement or Charge phase"]} />
-          </PhaseComponent>
-          <PhaseComponent name="Fight Phase">
-            <PhaseAccordion strats={grouped["Any phase"]} />
-            <PhaseAccordion strats={grouped["Fight phase"]} />
-          </PhaseComponent>
-        </Accordion> */}
+        <Accordion type="single" collapsible>
+          {list}
+        </Accordion>
       </main>
     </div>
   );
