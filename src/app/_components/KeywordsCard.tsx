@@ -1,15 +1,27 @@
 import React from "react";
-import { Category } from "../../../types";
+import { Category, Characteristic, Profile } from "../../../types";
 import { Badge } from "@/components/ui/badge";
 
 type Props = {
-  categories: Category[];
+  keywords: Set<string>;
+  selections?: Category[];
 };
 
-const KeywordsCard = ({ categories }: Props) => {
-  if (categories.length === 0) return;
-  const list = categories.map((cat) => <Badge key={cat.id}>{cat.name}</Badge>);
-  return <div className="flex gap-4 flex-wrap">{list}</div>;
+const KeywordsCard = ({ keywords, selections }: Props) => {
+  const keywordsArr = [...keywords.entries()];
+  if (keywordsArr.length === 0) return;
+  const list = keywordsArr.map(([key, value]) => (
+    <Badge key={key}>{key}</Badge>
+  ));
+  const wargearSelections = selections?.map((prof) => (
+    <Badge key={prof.name}>{prof.name}</Badge>
+  ));
+  return (
+    <div className="flex gap-4 flex-wrap pl-4">
+      {list}
+      {wargearSelections}
+    </div>
+  );
 };
 
 export default KeywordsCard;

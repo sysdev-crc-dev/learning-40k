@@ -1,10 +1,17 @@
 import React from "react";
-import { Characteristic } from "../../../types";
+import { Characteristic, Rule } from "../../../types";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
+import RuleCard from "./RuleCard";
+import { WeaponStats } from "../../../types/force";
+import dataServiceInst from "../../../services/Data.service";
+import { toArray } from "lodash";
+
 type ContentProps = {
-  characteristic: Characteristic[];
+  stats: WeaponStats;
+  keywords: string[];
+  rules: Map<string, string | null>;
 };
 
 type HeaderProps = {
@@ -21,7 +28,12 @@ const Header = ({ type }: HeaderProps) => {
   return (
     <div className="flex gap-1 sm:gap-8 justify-start mx-2 sm:mx-0">
       {headers.map((char) => (
-        <div key={char} className="flex flex-col items-center justify-center">
+        <div
+          key={char}
+          className={cn("flex flex-col items-center justify-center", {
+            "hidden sm:flex": char === "Keywords",
+          })}
+        >
           <Badge className={cn(`justify-center ${char}`)}>{char}</Badge>
         </div>
       ))}
@@ -29,26 +41,60 @@ const Header = ({ type }: HeaderProps) => {
   );
 };
 
-const Content = (props: ContentProps) => {
+const Content = ({ stats, keywords, rules }: ContentProps) => {
+  const rulesHelper = keywords.map((a) => {
+    for (const r of rules) {
+      const [key, value] = r;
+
+      const normalizedKey = key.toLowerCase().replace(/\s+/g, "");
+      const normalizedKeyword = a.toLowerCase().replace(/\s+/g, "");
+
+      if (normalizedKey.includes(normalizedKeyword)) {
+        return {
+          keyword: a,
+          rule: value,
+        };
+      }
+    }
+    return;
+  });
+
+  // console.log(rulesHelper);
+
   return (
-    <div className="flex gap-1 sm:gap-8 justify-start mx-0">
-      {props.characteristic.map((char) => (
+    <div className="flex gap-1 flex-wrap sm:gap-8 justify-start mx-0">
+      {Object.keys(stats).map((key) => (
         <div
-          key={char.name}
-          className="flex flex-col items-center justify-center w-fit"
+          key={key}
+          className={cn("flex flex-col items-center justify-center aqui", {
+            "w-fit": key !== "Keywords",
+            "w-full": key === "Keywords",
+          })}
         >
-          {char.name !== "Keywords" ? (
-            <Badge
-              className={cn("content justify-center ", `${char.name}`)}
-              variant={"outline"}
-            >
-              {char.$text}
-            </Badge>
-          ) : (
-            <span>{char.$text}</span>
-          )}
+          <Badge
+            className={cn("content justify-center ", `${key}`)}
+            variant={"outline"}
+          >
+            {stats[key]}
+          </Badge>
         </div>
       ))}
+      <div className="flex flex-row gap-2 w-full sm:w-fit">
+        {rulesHelper.map((char) => {
+          if (char) {
+            return (
+              <div
+                key={char.keyword}
+                className={cn("flex flex-row items-start justify-start")}
+              >
+                <RuleCard title={char.keyword} variant={"outline"}>
+                  {char.rule}
+                </RuleCard>
+              </div>
+            );
+          }
+        })}
+      </div>
     </div>
   );
 };

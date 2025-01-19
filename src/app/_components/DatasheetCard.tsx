@@ -1,21 +1,22 @@
 import React from "react";
 import { Characteristic } from "../../../types";
 import { Badge } from "@/components/ui/badge";
+import { ModelStats } from "../../../types/force";
 
 type Props = {
-  characteristic: Characteristic[];
+  stats: ModelStats;
 };
 
 const DatasheetCard = (props: Props) => {
   return (
-    <div className="flex gap-4 justify-start mx-2 sm:mx-0">
-      {props.characteristic.map((char) => (
+    <div className="flex gap-4 justify-start mx-2 sm:mx-4">
+      {Object.keys(props.stats).map((key) => (
         <div
-          key={char.name}
+          key={key}
           className="flex flex-col gap-4 items-center justify-center"
         >
-          <span>{char.name}</span>
-          <Badge>{char.$text}</Badge>
+          <span>{key}</span>
+          <Badge>{props.stats[key]}</Badge>
         </div>
       ))}
     </div>

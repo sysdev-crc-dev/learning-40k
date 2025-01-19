@@ -126,7 +126,9 @@ export type Characteristic = {
 
 export type Profile = {
   characteristics: Characteristic[];
+  categories?: Category[];
   selections?: Selection[];
+  rules?: Rule[];
   id: string;
   name: string;
   hidden: boolean;
@@ -183,3 +185,46 @@ export type Unit = {
   profiles: Profile[];
   rules?: Rule[];
 };
+
+export type ProfileTypes =
+  | "Abilities"
+  | "Ranged Weapons"
+  | "Melee Weapons"
+  | "Keywords";
+
+export type ProfileDictionary = Record<ProfileTypes, [Profile | undefined]>;
+
+export type ParsedForce = {
+  points: string;
+  forceName: string;
+  detachment: ParsedDetachment;
+  units: ParsedUnit[];
+};
+
+export type ParsedDetachment = {
+  name: string;
+  rule: string;
+};
+
+export type ParsedModel = {
+  stats: Profile;
+  datasheetAbilities: Profile[];
+  invulSave: Profile[];
+  factionRules: Rule[];
+  coreRules: Rule[];
+  leader: Profile[];
+  selections: ProfileDictionary;
+  keywords: Category[];
+};
+
+export interface ParsedUnit {
+  stats: Profile[];
+  datasheetAbilities: Profile[];
+  invulSave: Profile[];
+  factionRules: Rule[];
+  coreRules: Rule[];
+  leader?: Profile[];
+  selections: ProfileDictionary;
+  keywords: Category[];
+  name: string;
+}

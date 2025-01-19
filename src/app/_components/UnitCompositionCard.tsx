@@ -2,19 +2,19 @@ import React from "react";
 import { SelectionModel } from "../../../types";
 
 type Props = {
-  models: SelectionModel[];
+  model: string;
 };
 
-const UnitCompositionCard = ({ models }: Props) => {
+const UnitCompositionCard = ({ model }: Props) => {
   return (
     <>
-      {models.map((model) => (
-        <div className="flex flex-wrap gap-4" key={model.id}>
-          <span>
-            {model.name} x {model.number}
-          </span>
-        </div>
-      ))}
+      <div className="flex flex-wrap gap-4 text-xs" key={model}>
+        <span>
+          {model.split("\n").map((str, idx) => (
+            <p key={idx}>{str}</p>
+          ))}
+        </span>
+      </div>
     </>
   );
 };
