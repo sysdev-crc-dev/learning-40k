@@ -1,5 +1,5 @@
 import React from "react";
-import { Category, Characteristic, Profile } from "../../../types";
+import { Category } from "../../../types";
 import { Badge } from "@/components/ui/badge";
 
 type Props = {
@@ -10,9 +10,7 @@ type Props = {
 const KeywordsCard = ({ keywords, selections }: Props) => {
   const keywordsArr = [...keywords.entries()];
   if (keywordsArr.length === 0) return;
-  const list = keywordsArr.map(([key, value]) => (
-    <Badge key={key}>{key}</Badge>
-  ));
+  const list = keywordsArr.map(([key]) => <Badge key={key}>{key}</Badge>);
   const wargearSelections = selections?.map((prof) => (
     <Badge key={prof.name}>{prof.name}</Badge>
   ));

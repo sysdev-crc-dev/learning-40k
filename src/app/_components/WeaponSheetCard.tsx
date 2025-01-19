@@ -1,12 +1,9 @@
 import React from "react";
-import { Characteristic, Rule } from "../../../types";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 import RuleCard from "./RuleCard";
 import { WeaponStats } from "../../../types/force";
-import dataServiceInst from "../../../services/Data.service";
-import { toArray } from "lodash";
 
 type ContentProps = {
   stats: WeaponStats;

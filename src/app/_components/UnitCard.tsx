@@ -1,9 +1,6 @@
 import React from "react";
 import DatasheetCard from "./DatasheetCard";
-import { Profile, Unit } from "../../../types";
 import { Badge } from "@/components/ui/badge";
-import _ from "lodash";
-
 import {
   Accordion,
   AccordionContent,
@@ -46,7 +43,7 @@ const UnitCard = ({ unit, rules }: Props) => {
 
   return (
     <div className="flex gap-4 flex-col ">
-      {unit.modelsStats.map((profile, idx) => (
+      {unit.modelsStats.map((profile) => (
         <div
           className="flex flex-col gap-2 p-4 sm:pl-4 border-2 rounded-sm border-dotted"
           key={profile.id}

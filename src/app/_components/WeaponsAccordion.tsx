@@ -5,9 +5,7 @@ import {
 } from "@/components/ui/accordion";
 import React from "react";
 import WeaponSheetCard from "./WeaponSheetCard";
-import { Profile } from "../../../types";
 import { Badge } from "@/components/ui/badge";
-import { WeaponClass } from "../../../types/force";
 import { WeaponWithRules } from "./UnitCard";
 
 type Props = {

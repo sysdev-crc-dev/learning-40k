@@ -1,5 +1,4 @@
 import React from "react";
-import { SelectionModel } from "../../../types";
 
 type Props = {
   model: string;

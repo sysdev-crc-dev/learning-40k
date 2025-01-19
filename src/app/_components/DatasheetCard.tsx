@@ -1,5 +1,4 @@
 import React from "react";
-import { Characteristic } from "../../../types";
 import { Badge } from "@/components/ui/badge";
 import { ModelStats } from "../../../types/force";
 
