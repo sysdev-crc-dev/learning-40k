@@ -512,7 +512,7 @@ export class UnitClass extends BaseClass {
 }
 
 export class Force extends BaseClass {
-  public readonly factionRules: Map<string, string | null> = new Map();
+  public readonly factionRules: Map<string, string> = new Map();
   public readonly rules: Map<string, string | null> = new Map();
   private _catalog: string = "";
   private _faction: string = "Unknown";
@@ -682,6 +682,15 @@ function parseSelections(selections: ISelectionUnit[], force: Force) {
 
       for (const entry of unit.weaponRules) {
         force.rules.set(entry[0], entry[1]);
+      }
+    } else if (sel.type === "upgrade") {
+      for (const s of sel.selections) {
+        force.faction = s.name;
+        if (s.rules) {
+          for (const r of s.rules) {
+            extractRuleDescription(r, force.factionRules);
+          }
+        }
       }
     }
   }
@@ -912,11 +921,16 @@ function parseModelProfiles(
         unit.abilities[typeName] = new Map();
       }
 
-      if (profile.name === "Invulnerable Save") {
-        console.log(profile);
-      }
       // parse abilities
+
       for (const char of chars) {
+        if (profile.name === "Invulnerable Save") {
+          const match = char.$text.match(/([\d])+/g);
+          if (match) {
+            unit.invulSave = match[0];
+          }
+          continue;
+        }
         const charName = char.name;
 
         if (charName && chars.length > 1) {

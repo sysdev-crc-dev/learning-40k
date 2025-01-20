@@ -5,12 +5,11 @@ import parseDescriptions from "../../../utils/parseDescriptions";
 import PhaseComponent from "./Phase";
 import PhaseAccordion from "./PhaseAccordion";
 
-export default function StratsPage() {
+export default function StratsPage({ detachment }: { detachment: string }) {
   const stratsRelevant = dataServiceInst
     .getStratagems()
     .filter(
-      (strat) =>
-        strat.type.includes("Core") || strat.detachment === "Hallowed Martyrs"
+      (strat) => strat.type.includes("Core") || strat.detachment === detachment
     )
     .filter((strat) => strat.id !== 8539002)
     .map((strat) => ({

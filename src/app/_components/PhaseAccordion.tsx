@@ -9,6 +9,7 @@ import ConditionCard from "./ConditionCard";
 import { cn } from "@/lib/utils";
 
 const PhaseAccordion = ({ strats }: { strats: Stratagem[] | undefined }) => {
+  console.log(strats?.flatMap((a) => a.type.split("–")));
   return (
     <>
       <div>
@@ -25,7 +26,7 @@ const PhaseAccordion = ({ strats }: { strats: Stratagem[] | undefined }) => {
                       your: strat.turn === "Your turn",
                     })}
                   >
-                    {strat.type.split("-")[0]} - {strat.name} - [{strat.cp_cost}{" "}
+                    {strat.type.split("–")[0]} - {strat.name} - [{strat.cp_cost}{" "}
                     CP]
                   </AccordionTrigger>
                   <AccordionContent>

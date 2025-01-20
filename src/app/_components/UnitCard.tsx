@@ -23,6 +23,7 @@ export type WeaponWithRules = {
 };
 
 const UnitCard = ({ unit, rules }: Props) => {
+  console.log(unit);
   let abilities: [string, string][] = [];
   if (unit.abilities["Abilities"]) {
     abilities = Array.from(unit.abilities["Abilities"].entries());
@@ -56,6 +57,17 @@ const UnitCard = ({ unit, rules }: Props) => {
       ))}
 
       <Accordion type="single" collapsible>
+        <AccordionItem value="Invuln" disabled>
+          <AccordionTrigger
+            className="p-2 ml-2 sm:pl-4 text-primary-foreground bg-accent-foreground rounded-lg"
+            disabled
+          >
+            Invulnerable Save:{" "}
+            <div className="flex ml-2 mr-auto">
+              <Badge variant={"secondary"}>{unit.invulSave}</Badge>
+            </div>
+          </AccordionTrigger>
+        </AccordionItem>
         <AccordionItem value="Abilities">
           <AccordionTrigger className="pl-4 sm:pl-4">
             Abilities

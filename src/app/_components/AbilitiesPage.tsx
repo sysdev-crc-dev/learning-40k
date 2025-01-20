@@ -33,7 +33,6 @@ const ForcePage = ({ force, cost }: { force: Force; cost: string }) => {
 
 export default function AbilitiesPage({ roster }: { roster: RosterClass }) {
   if (!roster) return "Incorrect parsing";
-  console.log(typeof roster);
   const force = roster.forces.map((f) => (
     <ForcePage key={f.name} force={f} cost={roster.costs.toString()} />
   ));
