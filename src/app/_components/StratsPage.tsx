@@ -5,7 +5,7 @@ import parseDescriptions from "../../../utils/parseDescriptions";
 import PhaseComponent from "./Phase";
 import PhaseAccordion from "./PhaseAccordion";
 
-export default async function StratsPage() {
+export default function StratsPage() {
   const stratsRelevant = dataServiceInst
     .getStratagems()
     .filter(
@@ -23,7 +23,7 @@ export default async function StratsPage() {
   return (
     <div className="dark font-[family-name:var(--font-geist-sans)] px-2">
       <main className="flex flex-col gap-1">
-        <Accordion type="single">
+        <Accordion type="single" collapsible>
           <PhaseComponent name="Command Phase">
             <PhaseAccordion strats={grouped["Any phase"]} />
             <PhaseAccordion strats={grouped["Command phase"]} />

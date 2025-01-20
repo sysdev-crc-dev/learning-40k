@@ -616,7 +616,7 @@ function parseForce(data: IForce[], roster: RosterClass) {
       if (!duplicateForce(f, roster)) {
         const unitRules = force.selections.flatMap((a) => a.rules);
         const upgradeRules = force.selections.flatMap((a) =>
-          a.selections.flatMap((a) => a.rules)
+          a.selections?.flatMap((a) => a.rules)
         );
         const rules = _.uniqBy(
           [...unitRules, ...upgradeRules].filter((v) => v),
@@ -910,6 +910,10 @@ function parseModelProfiles(
       // Look at length of characteristics
       if (!unit.abilities[typeName]) {
         unit.abilities[typeName] = new Map();
+      }
+
+      if (profile.name === "Invulnerable Save") {
+        console.log(profile);
       }
       // parse abilities
       for (const char of chars) {

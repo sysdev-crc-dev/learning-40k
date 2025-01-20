@@ -12,7 +12,7 @@ export interface IAppProps {
 const PhaseComponent = (props: React.PropsWithChildren<IAppProps>) => {
   return (
     <AccordionItem value={props.name}>
-      <AccordionTrigger className="text-3xl font-bold dark:text-white">
+      <AccordionTrigger className="text-sm font-bold dark:text-white">
         {props.name}
       </AccordionTrigger>
       <AccordionContent>{props.children}</AccordionContent>

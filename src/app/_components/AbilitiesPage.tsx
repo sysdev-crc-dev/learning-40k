@@ -4,9 +4,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import Test from "../../../lists/test.json";
+
 import UnitCard from "./UnitCard";
-import { Force, IRoot, parseRoster } from "../../../types/force";
+import { Force, RosterClass } from "../../../types/force";
 
 const ForcePage = ({ force, cost }: { force: Force; cost: string }) => {
   const units = force.units.map((unit) => (
@@ -31,10 +31,9 @@ const ForcePage = ({ force, cost }: { force: Force; cost: string }) => {
   );
 };
 
-export default async function AbilitiesPage() {
-  const roster = parseRoster(Test as IRoot);
+export default function AbilitiesPage({ roster }: { roster: RosterClass }) {
   if (!roster) return "Incorrect parsing";
-
+  console.log(typeof roster);
   const force = roster.forces.map((f) => (
     <ForcePage key={f.name} force={f} cost={roster.costs.toString()} />
   ));
