@@ -88,20 +88,6 @@ body {
     color: #9b3922;
   }
 
-  button.either {
-    text-decoration: underline;
-    color: #ad49e1;
-  }
-
-  button.opp {
-    text-decoration: underline;
-    color: #9b3922;
-  }
-  button.your {
-    text-decoration: underline;
-    color: #006a67;
-  }
-
   div.Range {
     text-align: center;
     width: 60px;

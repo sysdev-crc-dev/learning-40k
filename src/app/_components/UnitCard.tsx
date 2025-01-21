@@ -68,22 +68,24 @@ const UnitCard = ({ unit, rules }: Props) => {
             </div>
           </AccordionTrigger>
         </AccordionItem>
-        <AccordionItem value="Abilities">
-          <AccordionTrigger className="pl-4 sm:pl-4">
+        <div className="flex flex-wrap flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline text-left [&[data-state=open]>svg]:rotate-180">
+          <div className="w-full  p-2 ml-2 sm:pl-4 text-primary-foreground bg-accent-foreground rounded-lg">
             Abilities
-          </AccordionTrigger>
-          <AccordionContent className="pl-4 sm:pl-4">
-            <div className="flex gap-2 flex-wrap">
-              {abilities.map(([key, value]) => (
-                <div key={key}>
-                  <RuleCard title={key} variant={"secondary"}>
-                    {value}
-                  </RuleCard>
-                </div>
-              ))}
+          </div>
+          <div className="overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down pl-4">
+            <div className="flex gap-2 flex-wrap mt-2">
+              {abilities
+                .filter(([k]) => k !== "Leader")
+                .map(([key, value]) => (
+                  <div key={key}>
+                    <RuleCard title={key} variant={"secondary"}>
+                      {value}
+                    </RuleCard>
+                  </div>
+                ))}
             </div>
-          </AccordionContent>
-        </AccordionItem>
+          </div>
+        </div>
 
         <WeaponsAccordion value="Ranged" weapons={ranged} rules={rules} />
         <WeaponsAccordion value="Melee" weapons={melee} rules={rules} />

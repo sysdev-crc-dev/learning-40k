@@ -1,10 +1,15 @@
+import { Badge } from "@/components/ui/badge";
 import { Condition } from "../../../types";
 
 const ConditionCard = ({ condition, text }: Condition) => {
   return (
     <div className="condition">
-      <b className={condition.split(":")[0].toLowerCase()}>{condition}</b>
-      <span>{text}</span>
+      <Badge
+        variant={condition !== "RESTRICTIONS:" ? "default" : "destructive"}
+      >
+        {condition}
+      </Badge>
+      <p className="my-1 mx-4">{text}</p>
     </div>
   );
 };

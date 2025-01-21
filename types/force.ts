@@ -35,8 +35,10 @@ export interface ISelectionUnit {
   name: string;
   entryId: string;
   number: number;
+  group?: string;
   type: string;
   from: string;
+  customName?: string;
   rules?: IRule[];
   selections: ISelectionUnit[];
   categories: ICategory[];
@@ -514,6 +516,7 @@ export class UnitClass extends BaseClass {
 export class Force extends BaseClass {
   public readonly factionRules: Map<string, string> = new Map();
   public readonly rules: Map<string, string | null> = new Map();
+  public readonly abilities: Map<string, string> = new Map();
   private _catalog: string = "";
   private _faction: string = "Unknown";
   private _configurations: string[] = [];
@@ -674,6 +677,11 @@ function parseSelections(selections: ISelectionUnit[], force: Force) {
     } else if (sel.type === "model" || sel.type === "unit") {
       // parse Units here
       const unit = parseUnit(sel);
+
+      for (const ability of unit.abilities["Abilities"]) {
+        force.abilities.set(`${unit.name} - ${ability[0]}`, ability[1]);
+      }
+
       force.units.push(unit);
 
       for (const entry of unit.rules) {
@@ -685,7 +693,7 @@ function parseSelections(selections: ISelectionUnit[], force: Force) {
       }
     } else if (sel.type === "upgrade") {
       for (const s of sel.selections) {
-        force.faction = s.name;
+        if (s.group === "Detachment") force.faction = s.name;
         if (s.rules) {
           for (const r of s.rules) {
             extractRuleDescription(r, force.factionRules);
@@ -697,7 +705,8 @@ function parseSelections(selections: ISelectionUnit[], force: Force) {
 }
 
 function parseUnit(data: ISelectionUnit): UnitClass {
-  const unit = new UnitClass(data.name);
+  const unit = new UnitClass(data.customName ? data.customName : data.name);
+  console.log(data);
   unit.id = data.id;
   const profilesFromUnit = [
     ...(data.profiles ?? []),
@@ -900,6 +909,7 @@ function parseModelProfiles(
         if (!unit.weapons[typeName]) unit.weapons[typeName] = new Map();
 
         const weapon = new WeaponClass(profileName);
+        weapon.count = weapon.count + 1;
         if (profile.rules) {
           for (const rule of profile.rules) {
             unit.weaponRules.set(rule.name, rule.description);
